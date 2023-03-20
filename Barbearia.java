@@ -49,7 +49,7 @@ public class Barbearia {
     public void adicionarCliente(Cliente cliente)
     {
         System.out.println("Cliente: "+cliente.getName()+" entrou na barbearia as "+cliente.getHorario()+".");
-        System.out.println("---");
+        
 
         synchronized (listaCliente)
         {
@@ -57,16 +57,15 @@ public class Barbearia {
             {
                 System.out.println("Nenhuma cadeira disponível para o cliente "+cliente.getName()+".");
                 System.out.println("Cliente "+cliente.getName()+" sai da barbearia.");
+                System.out.println("XXX");
                 return;
             }
 
             ((LinkedList<Cliente>)listaCliente).offer(cliente); // Adiciona o cliente atual como o último da lista de clientes.
             System.out.println("Cliente "+cliente.getName()+" se sentou em uma cadeira.");
+            System.out.println("---");
 
-            if(listaCliente.size() < numCadeiras)
-            {
-                listaCliente.notify();
-            }
+            listaCliente.notify();
         }
     }
 }
